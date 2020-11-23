@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use App\Models\Video;
-use VideoStream;
+use App\Helpers\VideoStream as VideoStream;
 class VideoController extends Controller
 {
     /**
@@ -52,7 +52,8 @@ class VideoController extends Controller
         $video->description = $request->description;
         $video->url = $url;
         $video->save();
-        return view('videos.details')->with('video',$video);
+        session()->flash('success', "Video uploaded successfully");
+        return redirect()->route('videos.details',$url);
     }
 
     /**
@@ -67,6 +68,11 @@ class VideoController extends Controller
         $path = Storage::path('videos/'.$video->video);
         $stream = new VideoStream($path);
         return $stream->start();
+    }
+
+    public function details($url){
+        $video = Video::where('url',$url)->first();
+        return view('videos.details')->with('video',$video);
     }
 
     public function watch($url)
