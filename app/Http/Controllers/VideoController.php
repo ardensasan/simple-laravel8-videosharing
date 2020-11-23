@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use App\Models\Video;
+use VideoStream;
 class VideoController extends Controller
 {
     /**
@@ -39,7 +43,16 @@ class VideoController extends Controller
             'title' => 'required|max:250',
             'description' => 'max:2000'
         ));
-
+        $request->video->store('videos');
+        $hash = $request->video->hashName();
+        $url = substr($hash, 0, strrpos($hash, "."));
+        $video = new Video;
+        $video->video = $hash;
+        $video->title = $request->title;
+        $video->description = $request->description;
+        $video->url = $url;
+        $video->save();
+        return view('videos.details')->with('video',$video);
     }
 
     /**
@@ -48,9 +61,18 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($url)
     {
-        //
+        $video = Video::where('url',$url)->first();
+        $path = Storage::path('videos/'.$video->video);
+        $stream = new VideoStream($path);
+        return $stream->start();
+    }
+
+    public function watch($url)
+    {
+        $video = Video::where('url',$url)->first();
+        return view('videos.view')->with('video',$video);
     }
 
     /**

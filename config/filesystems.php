@@ -48,6 +48,10 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'videos' => [ // used for Backpack/CRUD (in elFinder)
+            'driver' => 'local',
+            'root'   => storage_path('app/videos'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
