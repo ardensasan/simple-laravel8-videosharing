@@ -99,9 +99,19 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    public function update(Request $request)
     {
-        //
+        $this->validate($request,array(
+                '_title' => 'required|min:1|max:250',
+                '_description' => 'max:2000'
+        ));
+        $video = Video::find($request->_id);
+        $video->title = $request->_title;
+        $video->description = $request->_description;
+        $video->save();
+        session()->flash('success', "Video updated successfully");
+        return redirect()->route('videos.details',$video->url);
     }
 
     /**

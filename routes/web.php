@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::get('upload', [VideoController::class,'create']);
 Route::post('upload', [VideoController::class,'store'])->name('upload.store');
+Route::post('details', [VideoController::class,'update']);
 
 // Route::get('watch/{url}', [VideoController::class,'show'])->name('watch');
 Route::get('watch/{url}', [VideoController::class,'watch']);
