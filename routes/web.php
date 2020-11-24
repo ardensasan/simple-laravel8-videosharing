@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 // Route::resource('videos', VideoController::class);
 
-Route::get('upload', [VideoController::class,'create']);
+Route::get('upload', [VideoController::class,'create'])->name('upload.show');
 Route::post('upload', [VideoController::class,'store'])->name('upload.store');
 Route::post('details', [VideoController::class,'update']);
 
@@ -28,3 +28,8 @@ Route::post('details', [VideoController::class,'update']);
 Route::get('watch/{url}', [VideoController::class,'watch']);
 Route::get('show/{url}', [VideoController::class,'show'])->name('videos.show');
 Route::get('details/{url}', [VideoController::class,'details'])->name('videos.details');
+
+//search routes
+Route::get('search/{term}', [VideoController::class,'search'])->name('search.results');
+
+Route::view('sign-up','pages.signup');

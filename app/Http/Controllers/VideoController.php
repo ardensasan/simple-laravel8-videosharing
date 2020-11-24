@@ -87,9 +87,10 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+
+    public function search($term){
+        $videos = Video::where('title', 'LIKE', "%$term%")->orWhere('description', 'LIKE', "%$term%")->get();
+        return view('videos.results')->with('videos',$videos);
     }
 
     /**
