@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-8 offset-md-1">
         <br>
         <br>
         <form action="{{route('user.signin')}}" method="POST">

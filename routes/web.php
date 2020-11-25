@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/',[VideoController::class,'index'])->name('home');
 
 // Route::resource('videos', VideoController::class);
 
@@ -27,7 +25,7 @@ Route::post('upload', [VideoController::class,'store'])->name('upload.store');
 Route::post('details', [VideoController::class,'update']);
 
 // Route::get('watch/{url}', [VideoController::class,'show'])->name('watch');
-Route::get('watch/{url}', [VideoController::class,'watch']);
+Route::get('watch/{url}', [VideoController::class,'watch'])->name('videos.watch');
 Route::get('show/{url}', [VideoController::class,'show'])->name('videos.show');
 Route::get('details/{url}', [VideoController::class,'details'])->name('videos.details');
 
@@ -38,7 +36,7 @@ Route::get('search/{term}', [VideoController::class,'search'])->name('search.res
 Route::get('sign-up',[RegistrationController::class,'create']);
 Route::post('sign-up',[RegistrationController::class,'store'])->name('user.signup');
 
-Route::get('sign-in',[LoginController::class,'create']);
+Route::get('sign-in',[LoginController::class,'create'])->name('login');
 Route::post('sign-in',[LoginController::class,'login'])->name('user.signin');
 
 Route::get('logout',[LoginController::class,'logout'])->name('user.logout');

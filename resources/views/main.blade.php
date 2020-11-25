@@ -8,7 +8,7 @@
 </head>
 <body>
     @include('partials._nav')
-    <div class="container">
+    <div class="container"  style="overflow-x: hidden">
         @include('partials._messages')
         @yield('content')
     </div>

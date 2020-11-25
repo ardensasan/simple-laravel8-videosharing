@@ -3,7 +3,8 @@
 <br>
 @if(count($videos) > 0)
 <div class="card">
-    <div class="col-md-12">
+    <div class="card-body">
+        <div class="col-md-8">
             @foreach($videos as $video)
                 <div class="col-md-4">
                     {{$video->id}}
@@ -15,9 +16,16 @@
                 </div>
                 <a href="{{route('videos.watch',$video->url)}}" class="stretched-link"></a>
             @endforeach
+        </div>
     </div>
 </div>
 @else
 <p><center>No Search Results</center></p>
 @endif
+
+<div class="row">
+    <div class="col-md-12 offset-md-4">
+        <br>
+            {!! $videos->links() !!}
+    </div>
 @stop

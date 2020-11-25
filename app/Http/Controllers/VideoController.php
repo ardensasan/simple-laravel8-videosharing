@@ -7,9 +7,16 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use App\Models\Video;
+use Illuminate\Pagination\Paginator;
 use App\Helpers\VideoStream as VideoStream;
+
 class VideoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','search','watch','show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +24,9 @@ class VideoController extends Controller
      */
     public function index()
     {
-        return view('videos.index');
+        Paginator::useBootstrap();
+        $videos = Video::orderBy('created_at','desc')->paginate(10);
+        return view('pages.index')->with('videos',$videos);
     }
 
     /**
