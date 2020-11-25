@@ -29,7 +29,7 @@
         @else
         <ul class="nav navbar-nav ml-auto">
             <li class="nav-item"><a class="nav-link" href=""><strong>Sign In</strong></a></li>
-            <li class="nav-item"><a class="nav-link" href=""><strong>Sign Up</strong></a></li>
+            <li class="nav-item"><a class="nav-link" href="sign-up"><strong>Sign Up</strong></a></li>
         </ul>
         @endif
     </div>
