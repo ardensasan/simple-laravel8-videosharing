@@ -12,7 +12,6 @@
                 </div>
              </div>
         </div>
-
       @if(Auth::check())
       <ul class="nav navbar-nav ml-auto">
           <li class="nav-item dropdown">
@@ -22,13 +21,13 @@
                   <a class="dropdown-item" href="{{route('upload.show')}}">Upload</a>
                   <a class="dropdown-item" href="">My Videos</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="">Logout</a>
+                  <a class="dropdown-item" href="{{route('user.logout')}}">Logout</a>
                 </div>
             </li>
         </ul>
         @else
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href=""><strong>Sign In</strong></a></li>
+            <li class="nav-item"><a class="nav-link" href="sign-in"><strong>Sign In</strong></a></li>
             <li class="nav-item"><a class="nav-link" href="sign-up"><strong>Sign Up</strong></a></li>
         </ul>
         @endif

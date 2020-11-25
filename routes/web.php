@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +34,11 @@ Route::get('details/{url}', [VideoController::class,'details'])->name('videos.de
 //search routes
 Route::get('search/{term}', [VideoController::class,'search'])->name('search.results');
 
+//user routes
 Route::get('sign-up',[RegistrationController::class,'create']);
 Route::post('sign-up',[RegistrationController::class,'store'])->name('user.signup');
+
+Route::get('sign-in',[LoginController::class,'create']);
+Route::post('sign-in',[LoginController::class,'login'])->name('user.signin');
+
+Route::get('logout',[LoginController::class,'logout'])->name('user.logout');
