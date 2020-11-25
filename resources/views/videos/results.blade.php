@@ -17,6 +17,12 @@
             @endforeach
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12 offset-md-4">
+        <br>
+            {!! $videos->links() !!}
+    </div>
+</div>
 @else
 <p><center>No Search Results</center></p>
 @endif

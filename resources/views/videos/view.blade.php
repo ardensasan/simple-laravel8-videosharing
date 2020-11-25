@@ -4,7 +4,7 @@
 <br>
 <div class="row">
     <div class="col-md-10">
-        <video width="853" height="480" controls>
+        <video width="853" height="480" controls autoplay>
             <source src="{{ route('videos.show', $video->url)}}" type="video/mp4">
         </video>
         <br>

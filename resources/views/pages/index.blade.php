@@ -28,4 +28,5 @@
         <br>
             {!! $videos->links() !!}
     </div>
+</div>
 @stop

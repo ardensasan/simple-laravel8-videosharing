@@ -98,7 +98,8 @@ class VideoController extends Controller
      */
 
     public function search($term){
-        $videos = Video::where('title', 'LIKE', "%$term%")->orWhere('description', 'LIKE', "%$term%")->get();
+        Paginator::useBootstrap();
+        $videos = Video::orderBy('created_at','desc')->where('title', 'LIKE', "%$term%")->orWhere('description', 'LIKE', "%$term%")->paginate(10);
         return view('videos.results')->with('videos',$videos);
     }
 
