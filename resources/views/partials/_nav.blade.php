@@ -19,7 +19,7 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="">Profile</a>
                   <a class="dropdown-item" href="{{route('upload.show')}}">Upload</a>
-                  <a class="dropdown-item" href="">My Videos</a>
+                  <a class="dropdown-item" href="{{route('pages.myvideos')}}">My Videos</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{route('login')}}">Logout</a>
                 </div>

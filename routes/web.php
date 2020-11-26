@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
@@ -39,5 +40,7 @@ Route::post('sign-up',[RegistrationController::class,'store'])->name('user.signu
 
 Route::get('sign-in',[LoginController::class,'create'])->name('login');
 Route::post('sign-in',[LoginController::class,'login'])->name('user.signin');
+
+Route::get('myvideos',[PagesController::class,'myvideos'])->name('pages.myvideos');
 
 Route::get('logout',[LoginController::class,'logout'])->name('user.logout');
