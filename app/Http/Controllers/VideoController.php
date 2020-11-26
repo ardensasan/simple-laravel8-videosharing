@@ -9,6 +9,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use App\Models\Video;
 use Illuminate\Pagination\Paginator;
 use App\Helpers\VideoStream as VideoStream;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
@@ -52,14 +53,28 @@ class VideoController extends Controller
             'title' => 'required|max:250',
             'description' => 'max:2000'
         ));
-        $request->video->store('videos');
+        $size = "120x90"; //thumbnail size
+        $timeStamp = 1; //video timestamp
+
+        $video = $request->video;
+        $video->store('public\videos');
         $hash = $request->video->hashName();
         $url = substr($hash, 0, strrpos($hash, "."));
+        $_image = $url.".jpg";
+
+        shell_exec("ffmpeg -i $video -an -ss $timeStamp -s $size $_image"); //generate thumbnail
+
+        $image = Storage::disk('local_public')->get($_image); //get image from public folder
+        Storage::disk('local')->put('public\thumbnails\\'.$_image, $image); //save to storage folder
+        Storage::disk('local_public')->delete($_image); //delete from public folder
+
         $video = new Video;
         $video->video = $hash;
         $video->title = $request->title;
         $video->description = $request->description;
         $video->url = $url;
+        $video->thumbnail = $_image;
+        $video->user_id = Auth::id();
         $video->save();
         session()->flash('success', "Video uploaded successfully");
         return redirect()->route('videos.details',$url);
@@ -74,7 +89,7 @@ class VideoController extends Controller
     public function show($url)
     {
         $video = Video::where('url',$url)->first();
-        $path = Storage::path('videos/'.$video->video);
+        $path = Storage::path('public/videos/'.$video->video);
         $stream = new VideoStream($path);
         return $stream->start();
     }

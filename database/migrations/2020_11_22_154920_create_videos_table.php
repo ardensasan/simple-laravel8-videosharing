@@ -19,7 +19,11 @@ class CreateVideosTable extends Migration
             $table->text('description');
             $table->string('video');
             $table->string('url')->unique();
+            $table->string('thumbnail')->unique();
             $table->timestamps();
+        });
+        Schema::table('videos', function($table){
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +34,9 @@ class CreateVideosTable extends Migration
      */
     public function down()
     {
+        Schema::table('videos', function (Blueprint $table) {
+            $table->dropForeign(['videos_user_id_foreign']);
+        });
         Schema::dropIfExists('videos');
     }
 }
