@@ -28,6 +28,7 @@ Route::post('details', [VideoController::class,'update']);
 Route::get('watch/{url}', [VideoController::class,'watch'])->name('videos.watch');
 Route::get('show/{url}', [VideoController::class,'show'])->name('videos.show');
 Route::get('details/{url}', [VideoController::class,'details'])->name('videos.details');
+Route::get('thumbnail/{image}', [VideoController::class,'thumbnail'])->name('videos.thumbnail');
 
 //search routes
 Route::get('search/{term}', [VideoController::class,'search'])->name('search.results');

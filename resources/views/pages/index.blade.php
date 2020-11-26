@@ -4,19 +4,21 @@
 @if(count($videos) > 0)
 <div class="card">
     <div class="card-body">
-        <div class="col-md-8">
-            @foreach($videos as $video)
-                <div class="col-md-4">
-                    {{$video->id}}
-                </div>
-                <div class="col-md-8 offset-md-4">
-                    <h5>{{$video->title}}</h5>
-                    <p>{{$video->created_at}}</p>
-                    <p>{{$video->description}}</p>
-                </div>
-                <a href="{{route('videos.watch',$video->url)}}" class="stretched-link"></a>
-            @endforeach
+        @foreach($videos as $video)
+        <div class="row justify-content-start">
+            <div class="col-3">
+                <img src="{{route('videos.thumbnail',$video->thumbnail)}}" alt="">
+            </div>
+            <div class="col-4">
+                <h5>{{$video->title}}</h5>
+                <p>{{$video->user->name}}</p>
+                <p>{{$video->description}}</p>
+                <p>{{$video->created_at->format('F d, Y')}}</p>
+            </div>
+            <a href="{{route('videos.watch',$video->url)}}" class="stretched-link"></a>
         </div>
+        <hr>
+        @endforeach
     </div>
 </div>
 @else

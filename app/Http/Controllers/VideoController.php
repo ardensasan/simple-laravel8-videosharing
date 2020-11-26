@@ -30,6 +30,12 @@ class VideoController extends Controller
         return view('pages.index')->with('videos',$videos);
     }
 
+    public function thumbnail($thumbnail)
+    {
+        return Storage::disk('local')->get('public\thumbnails\\'.$thumbnail);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -53,7 +59,7 @@ class VideoController extends Controller
             'title' => 'required|max:250',
             'description' => 'max:2000'
         ));
-        $size = "120x90"; //thumbnail size
+        $size = "250x145"; //thumbnail size
         $timeStamp = 1; //video timestamp
 
         $video = $request->video;
