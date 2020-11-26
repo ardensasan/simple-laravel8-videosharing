@@ -10,7 +10,9 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+    public function videos(){
+        return $this->hasMany('App\Models\Videos');
+    }
     /**
      * The attributes that are mass assignable.
      *

@@ -20,6 +20,7 @@ class CreateVideosTable extends Migration
             $table->string('video');
             $table->string('url')->unique();
             $table->string('thumbnail')->unique();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
         });
         Schema::table('videos', function($table){
