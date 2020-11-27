@@ -21,7 +21,7 @@
                   <a class="dropdown-item" href="{{route('upload.show')}}">Upload</a>
                   <a class="dropdown-item" href="{{route('pages.myvideos')}}">My Videos</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{route('login')}}">Logout</a>
+                  <a class="dropdown-item" href="{{route('user.logout')}}">Logout</a>
                 </div>
             </li>
         </ul>

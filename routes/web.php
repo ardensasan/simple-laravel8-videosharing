@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[VideoController::class,'index'])->name('home');
-
+Route::get('/home',[VideoController::class,'index'])->name('home');
 // Route::resource('videos', VideoController::class);
 
 Route::get('upload', [VideoController::class,'create'])->name('upload.show');

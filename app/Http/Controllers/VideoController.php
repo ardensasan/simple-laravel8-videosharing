@@ -15,7 +15,7 @@ class VideoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','search','watch','show']);
+        $this->middleware('auth')->except(['index','search','watch','show','thumbnail']);
     }
 
     /**
@@ -55,27 +55,37 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,array(
-            'video' => 'required',
+            'video' => 'required|mimes:mp4,mov,ogg,wmv,webm,mpg,mpeg,avi',
             'title' => 'required|max:250',
             'description' => 'max:2000'
         ));
-        $size = "250x145"; //thumbnail size
-        $timeStamp = 1; //video timestamp
 
-        $video = $request->video;
-        $video->store('public\videos');
         $hash = $request->video->hashName();
         $url = substr($hash, 0, strrpos($hash, "."));
-        $_image = $url.".jpg";
 
-        shell_exec("ffmpeg -i $video -an -ss $timeStamp -s $size $_image"); //generate thumbnail
+        $_image = $url.".jpg";
+        $_video = $url.".mp4";
+
+        $video = $request->video;
+
+        $cmd = "ffmpeg -i $video -c:v libx264 $_video"; //convert uploaded video to mp4
+        shell_exec($cmd);
+
+        $size = "250x145"; //thumbnail size
+        $timeStamp = 1; //video timestamp
+        $cmd = "ffmpeg -i $video -an -ss $timeStamp -s $size $_image"; //generate thumbnail
+        shell_exec($cmd);
+
+        $video = Storage::disk('local_public')->get($_video); //get video from public folder
+        Storage::disk('local')->put('public\videos\\'.$_video, $video); //copy to storage folder
+        Storage::disk('local_public')->delete($_video); //delete original file from public folder
 
         $image = Storage::disk('local_public')->get($_image); //get image from public folder
-        Storage::disk('local')->put('public\thumbnails\\'.$_image, $image); //save to storage folder
-        Storage::disk('local_public')->delete($_image); //delete from public folder
+        Storage::disk('local')->put('public\thumbnails\\'.$_image, $image); //copy to storage folder
+        Storage::disk('local_public')->delete($_image); //delete original file from public folder
 
         $video = new Video;
-        $video->video = $hash;
+        $video->video = $_video;
         $video->title = $request->title;
         $video->description = $request->description;
         $video->url = $url;
