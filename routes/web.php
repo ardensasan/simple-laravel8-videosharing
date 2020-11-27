@@ -25,11 +25,12 @@ Route::get('upload', [VideoController::class,'create'])->name('upload.show');
 Route::post('upload', [VideoController::class,'store'])->name('upload.store');
 Route::post('details', [VideoController::class,'update']);
 
-// Route::get('watch/{url}', [VideoController::class,'show'])->name('watch');
+//video routes
 Route::get('watch/{url}', [VideoController::class,'watch'])->name('videos.watch');
 Route::get('show/{url}', [VideoController::class,'show'])->name('videos.show');
 Route::get('details/{url}', [VideoController::class,'details'])->name('videos.details');
 Route::get('thumbnail/{image}', [VideoController::class,'thumbnail'])->name('videos.thumbnail');
+Route::get('delete/{id}', [VideoController::class,'destroy']);
 
 //search routes
 Route::get('search/{term}', [VideoController::class,'search'])->name('search.results');

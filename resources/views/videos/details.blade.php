@@ -48,6 +48,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="col-md-4 offset-md-4">
+                <button class="btn btn-danger btn-block" id="delete">Delete Video</button>
+            </div>
         </div>
     </div>
 </div>
@@ -83,6 +86,13 @@ function edtitTitle(){
 
 $("#editDescription").click(function(){
     editDescription();
+});
+
+$("#delete").click(function(){
+    if(confirm("Delete this video?")){
+        let _id = "<?php echo $video->id; ?>";
+        window.location.href = '../delete/'+_id;
+    }
 });
 
 

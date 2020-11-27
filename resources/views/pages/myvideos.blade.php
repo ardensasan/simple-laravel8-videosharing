@@ -21,7 +21,7 @@
     </div>
 </div>
 @else
-<p><center>No Search Results</center></p>
+<p><center>No Videos Uploaded</center></p>
 @endif
 
 <div class="row">

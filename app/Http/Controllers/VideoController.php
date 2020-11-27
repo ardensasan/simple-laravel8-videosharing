@@ -55,7 +55,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,array(
-            'video' => 'required|mimes:mp4,mov,ogg,wmv,webm,mpg,mpeg,avi',
+            'video' => 'required|mimes:mp4,mov,ogg,wmv,webm,mpg,mpeg,avi|max:40960',
             'title' => 'required|max:250',
             'description' => 'max:2000'
         ));
@@ -152,8 +152,7 @@ class VideoController extends Controller
         $video->title = $request->_title;
         $video->description = $request->_description;
         $video->save();
-        session()->flash('success', "Video updated successfully");
-        return redirect()->route('videos.details',$video->url);
+        return;
     }
 
     /**
@@ -164,6 +163,9 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $video = Video::find($id);
+        $video->delete();
+        session()->flash('success', "Video deleted successfully");
+        return redirect()->route('pages.myvideos');
     }
 }

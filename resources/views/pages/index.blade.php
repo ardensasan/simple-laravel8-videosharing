@@ -5,11 +5,11 @@
 <div class="card">
     <div class="card-body">
         @foreach($videos as $video)
-        <div class="row justify-content-start">
-            <div class="col-3">
+        <div class="row">
+            <div class="col-md-3">
                 <img src="{{route('videos.thumbnail',$video->thumbnail)}}" alt="">
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
                 <h5>{{$video->title}}</h5>
                 <p>{{$video->user->name}}</p>
                 <p>{{$video->description}}</p>
@@ -22,7 +22,7 @@
     </div>
 </div>
 @else
-<p><center>No Search Results</center></p>
+<p><center>No Videos Found</center></p>
 @endif
 
 <div class="row">
