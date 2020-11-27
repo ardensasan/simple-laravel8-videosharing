@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,12 +36,13 @@ Route::get('delete/{id}', [VideoController::class,'destroy']);
 Route::get('search/{term}', [VideoController::class,'search'])->name('search.results');
 
 //user routes
-Route::get('sign-up',[RegistrationController::class,'create']);
-Route::post('sign-up',[RegistrationController::class,'store'])->name('user.signup');
+Route::get('sign-up',[UserController::class,'create']);
+Route::post('sign-up',[UserController::class,'store'])->name('user.signup');
+Route::post('userdelete',[UserController::class,'destroy'])->name('user.delete');
 
 Route::get('sign-in',[LoginController::class,'create'])->name('login');
 Route::post('sign-in',[LoginController::class,'login'])->name('user.signin');
 
 Route::get('myvideos',[PagesController::class,'myvideos'])->name('pages.myvideos');
-
+Route::get('profile', [PagesController::class,'profile'])->name('user.profile');
 Route::get('logout',[LoginController::class,'logout'])->name('user.logout');

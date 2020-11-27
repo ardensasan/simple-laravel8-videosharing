@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
-class RegistrationController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest',['except' => 'destroy']);
     }
 
     public function create(){
@@ -31,4 +32,12 @@ class RegistrationController extends Controller
         session()->flash('success','Successfully registered');
         return redirect()->route('home');
     }
+
+    public function destroy(){
+        $user = User::find(Auth::id());
+        $user->delete();
+        session()->flash('success','Account successfully deleted');
+        return redirect()->route('home');
+    }
+
 }
