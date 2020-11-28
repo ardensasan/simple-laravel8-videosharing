@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest',['except' => 'destroy']);
+        $this->middleware('guest')->except(['destroy','update']);
     }
 
     public function create(){
@@ -33,11 +33,21 @@ class UserController extends Controller
         return redirect()->route('home');
     }
 
+    public function update(Request $request){
+        $this->validate($request,array(
+            'name' => 'required|max:200',
+            'email' => 'required|email|max:200|unique:users,email,'.Auth::id(),
+        ));
+        $user = User::find(Auth::id());
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+        session()->flash('success','Account successfully updated');
+    }
+
     public function destroy(){
         $user = User::find(Auth::id());
         $user->delete();
         session()->flash('success','Account successfully deleted');
-        return redirect()->route('home');
     }
-
 }

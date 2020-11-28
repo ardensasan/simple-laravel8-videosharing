@@ -39,6 +39,7 @@ Route::get('search/{term}', [VideoController::class,'search'])->name('search.res
 Route::get('sign-up',[UserController::class,'create']);
 Route::post('sign-up',[UserController::class,'store'])->name('user.signup');
 Route::post('userdelete',[UserController::class,'destroy'])->name('user.delete');
+Route::post('update', [UserController::class,'update'])->name('user.update');
 
 Route::get('sign-in',[LoginController::class,'create'])->name('login');
 Route::post('sign-in',[LoginController::class,'login'])->name('user.signin');
