@@ -134,6 +134,11 @@ function update(){
         success:function(response){
             document.getElementById('flash-message').innerHTML = "";
             document.getElementById('flash-message').innerHTML = '<div class="alert alert-success" role="alert" style="margin-top:20px"><strong>Success: </strong> Successfully updated video details</div>';
+        },
+        error:function(response){
+            let errors = $.parseJSON(response.responseText);
+            alert(errors.message);
+            location.reload();
         }
     });
 }

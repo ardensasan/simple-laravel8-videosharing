@@ -126,8 +126,10 @@ function updateProfile(){
             success:function(){
                 window.location.href = "/profile";
             },
-            error:function(){
-                window.location.href = "/profile";
+            error:function(response){
+                let errors = $.parseJSON(response.responseText);
+                alert(errors.message);
+                location.reload();
             }
         });
     }
