@@ -27,3 +27,7 @@ Database
     DB_DATABASE=videostream
     DB_USERNAME=root
     DB_PASSWORD=
+
+
+Helper Files 
+    \app\Helpers\VideoStream.php by Rana https://gist.github.com/ranacseruet/9826293
