@@ -1,7 +1,9 @@
 Video Hosting Website made in Laravel 8
 How to Use:
     Must have composer installed https://getcomposer.org/
+    
     FFMpeg for video conversion and thumbnail generation https://ffmpeg.org/
+    
 - composer update in project directory
 - php artisan migrate in project directory
 - copy .env.xample to .env
