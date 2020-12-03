@@ -1,4 +1,4 @@
-Video Hosting Website made in Laravel 8
+Video Sharing Website made in Laravel 8
 
 # How to Use:
 
