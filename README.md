@@ -6,12 +6,6 @@ Video Sharing Website made in Laravel 8
    
    FFMpeg for video conversion and thumbnail generation https://ffmpeg.org/
     
-- composer update in project directory
-- php artisan migrate in project directory
-- copy .env.xample to .env
-- start server
-    
-    
 FFMPEG
     change ffmpeg in app\Http\Controllers\VideoController.php depending on your FFMPEG installation
     
