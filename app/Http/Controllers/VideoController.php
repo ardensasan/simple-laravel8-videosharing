@@ -9,12 +9,19 @@ use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use App\Models\Video;
 use Illuminate\Pagination\Paginator;
 use App\Helpers\VideoStream as VideoStream;
+use App\Helpers\S3FileStream as S3FileStream;
 use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
+    private $disk;
+    private $video_path;
+    private $thumbnail_path;
     public function __construct()
     {
+        $this->disk = 's3';// local for local disk, s3 for amazon s3 disk
+        $this->video_path = 'videos/'; //path to video relative to disk
+        $this->thumbnail_path = 'thumbnails/'; //path to thumbnails relative to disk
         $this->middleware('auth')->except(['index','search','watch','show','thumbnail']);
     }
 
@@ -32,7 +39,7 @@ class VideoController extends Controller
 
     public function thumbnail($thumbnail)
     {
-        return Storage::disk('local')->get('public\thumbnails\\'.$thumbnail);
+        return Storage::disk($this->disk)->get($this->thumbnail_path.$thumbnail);
     }
 
 
@@ -77,11 +84,10 @@ class VideoController extends Controller
         shell_exec($cmd);
 
         $video = Storage::disk('local_public')->get($_video); //get video from public folder
-        Storage::disk('local')->put('public\videos\\'.$_video, $video); //copy to storage folder
+        Storage::disk($this->disk)->put($this->video_path.$_video, $video);  // copy video to disk storage
         Storage::disk('local_public')->delete($_video); //delete original file from public folder
-
         $image = Storage::disk('local_public')->get($_image); //get image from public folder
-        Storage::disk('local')->put('public\thumbnails\\'.$_image, $image); //copy to storage folder
+        Storage::disk($this->disk)->put($this->thumbnail_path.$_image, $image); // copy image to disk storage
         Storage::disk('local_public')->delete($_image); //delete original file from public folder
 
         $video = new Video;
@@ -105,13 +111,19 @@ class VideoController extends Controller
     public function show($url)
     {
         $video = Video::where('url',$url)->first();
-        $path = Storage::path('public/videos/'.$video->video);
-        $stream = new VideoStream($path);
-        return $stream->start();
+        if($this->disk == 'local'){
+            $path = Storage::path($this->video_path.$video->video);
+            $stream = new VideoStream($path);
+            return $stream->start();
+        }else if($this->disk == 's3'){
+            $filestream = new S3FileStream($this->video_path.$video->video, $this->disk);
+            return $filestream->output();
+        }
     }
 
     public function details($url){
         $video = Video::where('url',$url)->first();
+
         return view('videos.details')->with('video',$video);
     }
 
