@@ -80,7 +80,7 @@ class VideoController extends Controller
 
         $size = "250x145"; //thumbnail size
         $timeStamp = 1; //video timestamp
-        $cmd = "ffmpeg -i $video -an -ss $timeStamp -s $size $_image"; //generate thumbnail
+        $cmd = "ffmpeg -i $video -vframes 1 -an -ss $timeStamp -s $size $_image"; //generate thumbnail
         shell_exec($cmd);
 
         $video = Storage::disk('local_public')->get($_video); //get video from public folder
