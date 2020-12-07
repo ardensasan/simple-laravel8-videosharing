@@ -12,6 +12,7 @@
                 </div>
                 <div class="col-4">
                     <h5>{{$video->title}}</h5>
+                    <p>{{$video->user->name}}</p>
                     <p>{{$video->description}}</p>
                     <p>Uploaded:&nbsp;&nbsp;{{$video->created_at->format('F d, Y')}}</p>
                 </div>
