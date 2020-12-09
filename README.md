@@ -20,15 +20,15 @@ copy .env.example to .env file
 
 
 FFMPEG
-    change ffmpeg in app\Http\Controllers\VideoController.php depending on your FFMPEG installation
+    change ffmpeg in app/Http/Controllers/VideoController.php depending on your FFMPEG installation
     
     $cmd = "ffmpeg -i $video -c:v libx264 $_video";
     $cmd = "ffmpeg -i $video -an -ss $timeStamp -s $size $_image";
 
 
-Default storage disk is 'local' for local storage in \storage\app\
+Default storage disk is 'local' for local storage in /storage/app/
 
-change the settings in  app\Http\Controllers\VideoController.php
+change the settings in  app/Http/Controllers/VideoController.php
 
 's3'  for amazon s3
 
