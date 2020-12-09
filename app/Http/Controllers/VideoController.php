@@ -19,7 +19,7 @@ class VideoController extends Controller
     private $thumbnail_path;
     public function __construct()
     {
-        $this->disk = 's3';// local for local disk, s3 for amazon s3 disk
+        $this->disk = 'local';// local for local disk, s3 for amazon s3 disk
         $this->video_path = 'videos/'; //path to video relative to disk
         $this->thumbnail_path = 'thumbnails/'; //path to thumbnails relative to disk
         $this->middleware('auth')->except(['index','search','watch','show','thumbnail']);
@@ -62,7 +62,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,array(
-            'video' => 'required|mimes:mp4,mov,ogg,wmv,webm,mpg,mpeg,avi|max:40960',
+            'video' => 'required|mimes:mp4,mov,ogg,wmv,webm,mpg,mpeg,avi',
             'title' => 'required|max:250',
             'description' => 'max:2000'
         ));
