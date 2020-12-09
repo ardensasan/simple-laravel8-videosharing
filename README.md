@@ -26,7 +26,8 @@ FFMPEG
     $cmd = "ffmpeg -i $video -an -ss $timeStamp -s $size $_image";
 
 
-Default storage disk is 'local' for local storage in /storage/app/
+Default storage disk is 'local' for local storage in \storage\app\
+
 change the settings in  app\Http\Controllers\VideoController.php
 
 's3'  for amazon s3
