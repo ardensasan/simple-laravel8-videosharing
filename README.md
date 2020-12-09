@@ -1,26 +1,40 @@
 Video Sharing Website made in Laravel 8
 
-# How to Use:
+# Requirements:
 
-   Must have composer installed https://getcomposer.org/
+1. composer installed https://getcomposer.org/
+2. FFMpeg for video conversion and thumbnail generation https://ffmpeg.org/
+3. mysql
+
+run bash or cmd in the project root
+
+for live server run
+
+    composer install --no-dev
    
-   FFMpeg for video conversion and thumbnail generation https://ffmpeg.org/
+for production run   
+
+    composer install 
     
+copy .env.example to .env file
+
+
 FFMPEG
     change ffmpeg in app\Http\Controllers\VideoController.php depending on your FFMPEG installation
     
     $cmd = "ffmpeg -i $video -c:v libx264 $_video";
     $cmd = "ffmpeg -i $video -an -ss $timeStamp -s $size $_image";
-    
-Database
-    edit .env file for database settings
-    
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=videostream
-    DB_USERNAME=root
-    DB_PASSWORD=
+
+
+Default storage disk is 'local' for local storage in /storage/app/
+change the settings in  app\Http\Controllers\VideoController.php
+
+'s3'  for amazon s3
+'local'  for local disk
+
+    $this->disk = 'local'
+    $this->video_path = 'videos/'
+    $this->thumbnail_path = 'thumbnails/'
 
 
 Helper Files 
