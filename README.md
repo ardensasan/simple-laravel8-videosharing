@@ -30,6 +30,7 @@ Default storage disk is 'local' for local storage in /storage/app/
 change the settings in  app\Http\Controllers\VideoController.php
 
 's3'  for amazon s3
+
 'local'  for local disk
 
     $this->disk = 'local'
